@@ -63,6 +63,11 @@ export declare class NgJwtAuthService {
      */
     private tokenNeedsToRefreshNow();
     /**
+     * Check if there should be a cookie, but it is missing
+     * @returns {boolean}
+     */
+    private cookieIsMissing();
+    /**
      * Get the endpoint for login
      * @returns {string}
      */

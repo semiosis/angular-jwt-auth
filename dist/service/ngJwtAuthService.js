@@ -91,7 +91,14 @@ var NgJwtAuthService = (function () {
         }
         var latestRefresh = moment(this.tokenData.data.exp * 1000).subtract(this.config.refreshBeforeSeconds, 'seconds'), nextRefreshOpportunity = moment().add(this.config.checkExpiryEverySeconds);
         //needs to refresh if the the next time we could refresh is after the configured refresh before date
-        return (latestRefresh <= nextRefreshOpportunity);
+        return (latestRefresh <= nextRefreshOpportunity || this.cookieIsMissing());
+    };
+    /**
+     * Check if there should be a cookie, but it is missing
+     * @returns {boolean}
+     */
+    NgJwtAuthService.prototype.cookieIsMissing = function () {
+        return this.config.cookie.enabled && !this.$cookies.get(this.config.cookie.name);
     };
     /**
      * Get the endpoint for login
